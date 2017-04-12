@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd             http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd            http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+    <cxf:rsServer address="/expose" id="rsServer" serviceClass="com.test.inmarsat.samplerest.SampleService"/>
+    <camel:camelContext
+        id="camelContext-20489f2b-e2ef-4a4b-bb31-d142a29f0419" trace="false">
+        <camel:packageScan>
+            <camel:package>com.test.inmarsat.samplerest</camel:package>
+        </camel:packageScan>
+    </camel:camelContext>
+</beans>
