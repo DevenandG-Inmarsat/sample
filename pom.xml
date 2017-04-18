@@ -72,7 +72,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId> 
+			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
@@ -82,28 +82,34 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
+			<artifactId>camel-http</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-rs-extension-providers</artifactId>
-		</dependency>
+
 
 	</dependencies>
 	<repositories>
+		<repository>
+			<id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>jboss-ga-repository</id>
+			<name>FuseSource Release Repository</name>
+			<url>http://maven.repository.redhat.com/ga/</url>
+		</repository>
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -128,6 +134,7 @@
 			<name>Red Hat GA Repository</name>
 			<url>https://maven.repository.redhat.com/ga</url>
 		</repository>
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
