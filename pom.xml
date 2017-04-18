@@ -94,11 +94,7 @@
 
 	</dependencies>
 	<repositories>
-		<repository>
-			<id>maven-restlet</id>
-			<name>Public online Restlet repository</name>
-			<url>http://maven.restlet.org</url>
-		</repository>
+
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -134,7 +130,11 @@
 			<name>Red Hat GA Repository</name>
 			<url>https://maven.repository.redhat.com/ga</url>
 		</repository>
-
+		<repository>
+			<id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
