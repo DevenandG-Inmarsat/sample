@@ -8,7 +8,7 @@ public class SampleRoute extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
-		restConfiguration().component("restlet");
+		restConfiguration().component("restlet").port(8080);
 		rest("/expose")
 		.get("/rest").produces("text/plain")
 		.to("direct:samplerest");
