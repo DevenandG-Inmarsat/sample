@@ -27,6 +27,11 @@
 		<fabric8.label.module>${project.artifactId}</fabric8.label.module>
 		<fabric8.label.container>spring</fabric8.label.container>
 		<fabric8.dockerUser>${project.groupId}/</fabric8.dockerUser>
+		<docker.port.container.jolokia>8778</docker.port.container.jolokia>
+		<docker.port.container.http>8080</docker.port.container.http>
+		<fabric8.service.name>samplerest</fabric8.service.name>
+		<fabric8.service.port>8080</fabric8.service.port>
+		<fabric8.service.containerPort>http</fabric8.service.containerPort>
 	</properties>
 
 	<dependencyManagement>
@@ -130,7 +135,7 @@
 			<name>Red Hat GA Repository</name>
 			<url>https://maven.repository.redhat.com/ga</url>
 		</repository>
-		<repository> 
+		<repository>
 			<id>maven-restlet</id>
 			<name>Public online Restlet repository</name>
 			<url>http://maven.restlet.org</url>
