@@ -30,9 +30,9 @@
 		<fabric8.label.module>${project.artifactId}</fabric8.label.module>
 		<fabric8.label.container>spring</fabric8.label.container>
 		<docker.port.container.jolokia>8778</docker.port.container.jolokia> 
-		 <docker.port.container.http>8080</docker.port.container.http> 
+		 <docker.port.container.http>9091</docker.port.container.http> 
 		 <fabric8.service.name>samplerest</fabric8.service.name>
-		<fabric8.service.port>8080</fabric8.service.port>
+		<fabric8.service.port>9091</fabric8.service.port>
 		<fabric8.service.containerPort>http</fabric8.service.containerPort>
 	</properties>
 
@@ -193,13 +193,13 @@
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>${fabric8.version}</version>
 
-				<configuration>
-					<!-- Standard d-m-p configuration which defines how images are build, 
-						i.e. how the docker.tar is created -->
+				<!-- <configuration>
+					Standard d-m-p configuration which defines how images are build, 
+						i.e. how the docker.tar is created
 					<images>
 						<image>
 							<name>${docker.image}</name>
-							<!-- "alias" is used to correlate to the containers in the pod spec -->
+							"alias" is used to correlate to the containers in the pod spec
 							<alias>camel-service</alias>
 							<build>
 								<from>${docker.from}</from>
@@ -212,38 +212,38 @@
 							</build>
 						</image>
 					</images>
-					<!-- resources to be created -->
+					resources to be created
 					<resources>
-						<!-- Labels that are applied to all created objects -->
+						Labels that are applied to all created objects
 						<labels>
 							<group>quickstarts</group>
 						</labels>
-						<!-- Definition of the ReplicationController / ReplicaSet. Any better 
-							name than "containers" ? -->
+						Definition of the ReplicationController / ReplicaSet. Any better 
+							name than "containers" ?
 						<deployment>
-							<!-- Name of the replication controller, which will have a sane default 
-								(container alisa, mvn coords, ..) -->
+							Name of the replication controller, which will have a sane default 
+								(container alisa, mvn coords, ..)
 							<name>${project.artifactId}</name>
-							<!-- Replica count -->
+							Replica count
 							<replicas>1</replicas>
-							<!-- Container to include in the POD template. By default all with 
+							Container to include in the POD template. By default all with 
 								a "build" section in the "images" configuration will be add to the POD. However, 
-								they can be configured separately, too. -->
+								they can be configured separately, too.
 							<containers>
 								<container>
-									<!-- Alias name correlating with the same named "image" configuration 
-										above. Can be ommitted if there is only a single image added -->
+									Alias name correlating with the same named "image" configuration 
+										above. Can be ommitted if there is only a single image added
 									<alias>camel-service</alias>
 									<ports>
-										<!-- Ports to expose in the pod specs -->
+										Ports to expose in the pod specs
 										<port>8080</port>
 									</ports>
 								</container>
 							</containers>
-							<!-- Volumes used in the replicaSet -->
+							Volumes used in the replicaSet
 						
 						</deployment>
-						<!-- Dedicated section for (multiple) services to define -->
+						Dedicated section for (multiple) services to define
 						<services>
 							<service>
 								<name>${project.artifactId}</name>
@@ -251,7 +251,7 @@
 							</service>
 						</services>
 					</resources>
-				</configuration>
+				</configuration> -->
 				<executions>
 					<execution>
 						<id>json</id>
