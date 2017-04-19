@@ -21,19 +21,21 @@
 		<fabric8.version>2.2.0.redhat-079</fabric8.version>
 		<docker.maven.plugin.version>0.13.6</docker.maven.plugin.version>
 		<maven-resources-plugin.encoding>UTF-8</maven-resources-plugin.encoding>
+		<docker.from>jboss-fuse-6/fis-java-openshift:1.0</docker.from>
+		<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>
+		<fabric8.dockerUser>${project.groupId}/</fabric8.dockerUser>
 		<fabric8.iconRef>camel</fabric8.iconRef>
 		<fabric8.label.app>samplerest</fabric8.label.app>
 		<fabric8.label.group>simplerest</fabric8.label.group>
 		<fabric8.label.module>${project.artifactId}</fabric8.label.module>
 		<fabric8.label.container>spring</fabric8.label.container>
 		<fabric8.dockerUser>${project.groupId}/</fabric8.dockerUser>
-		<docker.port.container.jolokia>8778</docker.port.container.jolokia>
-		<docker.port.container.http>80:8080</docker.port.container.http>
-		<fabric8.service.name>samplerest</fabric8.service.name>
+		<!-- <docker.port.container.jolokia>8778</docker.port.container.jolokia> -->
+		<!-- <docker.port.container.http>80:8080</docker.port.container.http> <fabric8.service.name>samplerest</fabric8.service.name> -->
 		<fabric8.service.port>8080</fabric8.service.port>
 		<fabric8.service.containerPort>http</fabric8.service.containerPort>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -222,6 +224,31 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jolokia</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.maven.plugin.version}</version>
+				<configuration>
+					<images>
+						<image>
+							<name>${docker.image}</name>
+							<build>
+								<assembly>
+									<descriptorRef>artifact-with-dependencies</descriptorRef>
+								</assembly>
+								<env>
+									<MAIN>org.apache.camel.spring.Main</MAIN>
+								</env>
+							</build>
+							<run>
+								<ports>
+									<port>80:8080</port>
+								</ports>
+							</run>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
