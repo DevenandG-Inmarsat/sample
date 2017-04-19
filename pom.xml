@@ -22,16 +22,16 @@
 		<docker.maven.plugin.version>0.13.6</docker.maven.plugin.version>
 		<maven-resources-plugin.encoding>UTF-8</maven-resources-plugin.encoding>
 		<docker.from>jboss-fuse-6/fis-java-openshift:1.0</docker.from>
-		<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>
+		<docker.image>${project.groupId}/${project.artifactId}</docker.image>
 		<fabric8.dockerUser>${project.groupId}/</fabric8.dockerUser>
 		<fabric8.iconRef>camel</fabric8.iconRef>
 		<fabric8.label.app>samplerest</fabric8.label.app>
 		<fabric8.label.group>simplerest</fabric8.label.group>
 		<fabric8.label.module>${project.artifactId}</fabric8.label.module>
 		<fabric8.label.container>spring</fabric8.label.container>
-		<fabric8.dockerUser>${project.groupId}/</fabric8.dockerUser>
-		<!-- <docker.port.container.jolokia>8778</docker.port.container.jolokia> -->
-		<!-- <docker.port.container.http>80:8080</docker.port.container.http> <fabric8.service.name>samplerest</fabric8.service.name> -->
+		<docker.port.container.jolokia>8778</docker.port.container.jolokia> 
+		 <docker.port.container.http>8080</docker.port.container.http> 
+		 <fabric8.service.name>samplerest</fabric8.service.name>
 		<fabric8.service.port>8080</fabric8.service.port>
 		<fabric8.service.containerPort>http</fabric8.service.containerPort>
 	</properties>
@@ -192,6 +192,66 @@
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>${fabric8.version}</version>
+
+				<configuration>
+					<!-- Standard d-m-p configuration which defines how images are build, 
+						i.e. how the docker.tar is created -->
+					<images>
+						<image>
+							<name>${docker.image}</name>
+							<!-- "alias" is used to correlate to the containers in the pod spec -->
+							<alias>camel-service</alias>
+							<build>
+								<from>${docker.from}</from>
+								<assembly>
+									<descriptorRef>artifact-with-dependencies</descriptorRef>
+								</assembly>
+								<env>
+									<JAVA_MAIN_CLASS>org.apache.camel.spring.Main</JAVA_MAIN_CLASS>
+								</env>
+							</build>
+						</image>
+					</images>
+					<!-- resources to be created -->
+					<resources>
+						<!-- Labels that are applied to all created objects -->
+						<labels>
+							<group>quickstarts</group>
+						</labels>
+						<!-- Definition of the ReplicationController / ReplicaSet. Any better 
+							name than "containers" ? -->
+						<deployment>
+							<!-- Name of the replication controller, which will have a sane default 
+								(container alisa, mvn coords, ..) -->
+							<name>${project.artifactId}</name>
+							<!-- Replica count -->
+							<replicas>1</replicas>
+							<!-- Container to include in the POD template. By default all with 
+								a "build" section in the "images" configuration will be add to the POD. However, 
+								they can be configured separately, too. -->
+							<containers>
+								<container>
+									<!-- Alias name correlating with the same named "image" configuration 
+										above. Can be ommitted if there is only a single image added -->
+									<alias>camel-service</alias>
+									<ports>
+										<!-- Ports to expose in the pod specs -->
+										<port>8080</port>
+									</ports>
+								</container>
+							</containers>
+							<!-- Volumes used in the replicaSet -->
+						
+						</deployment>
+						<!-- Dedicated section for (multiple) services to define -->
+						<services>
+							<service>
+								<name>${project.artifactId}</name>
+								<headless>true</headless>
+							</service>
+						</services>
+					</resources>
+				</configuration>
 				<executions>
 					<execution>
 						<id>json</id>
@@ -224,31 +284,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jolokia</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>${docker.maven.plugin.version}</version>
-				<configuration>
-					<images>
-						<image>
-							<name>${docker.image}</name>
-							<build>
-								<assembly>
-									<descriptorRef>artifact-with-dependencies</descriptorRef>
-								</assembly>
-								<env>
-									<MAIN>org.apache.camel.spring.Main</MAIN>
-								</env>
-							</build>
-							<run>
-								<ports>
-									<port>80:8080</port>
-								</ports>
-							</run>
-						</image>
-					</images>
-				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
